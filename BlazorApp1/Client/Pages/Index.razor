@@ -1,0 +1,48 @@
+﻿@page "/"
+
+<div>
+    <h3>Listado de Películas</h3>
+    <ListadoPeliculas Peliculas="ObtenerListadoPeliculas()">
+    </ListadoPeliculas>
+
+</div>
+
+@code{
+
+    string nombre = "Alonso";
+
+     private List<Peliculas> ObtenerListadoPeliculas()
+    {
+        return new List<Peliculas>()
+        {
+            new Peliculas(){Titulo = "La Momia",Lanzamiento= new DateTime(2019,11,10)},
+            new Peliculas(){Titulo = "Avengers",Lanzamiento= new DateTime(2019,11,10)},
+            new Peliculas(){Titulo = "Joker",Lanzamiento= new DateTime(2019,11,10)}
+        };
+
+    }
+
+    
+
+    public Peliculas Spiderman { get { return ObtenerPeliculas(); } }
+
+
+
+    private Peliculas ObtenerPeliculas()
+    {
+
+        return new Peliculas()
+        {
+            Titulo = "Spiderman a new beginig",
+            Lanzamiento = new DateTime(2019,11,09)
+
+        };
+    }
+
+   
+    private void manejarClick()
+    {
+        Console.WriteLine("Has hecho Click, desde método");
+    }
+
+}
