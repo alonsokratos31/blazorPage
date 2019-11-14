@@ -1,32 +1,37 @@
 ﻿@page "/"
+@inject ServicioSingleton singleton
+@inject IRepositorio  repositorio
 
+
+<p>El valor del singleton es @singleton.Valor</p>
 <div>
     <h3>Listado de Películas</h3>
-    <ListadoPeliculas Peliculas="ObtenerListadoPeliculas()">
+    <ListadoPeliculas Peliculas="Peliculas">
     </ListadoPeliculas>
 
 </div>
+
+<button @onclick="AgregarPelicula">Agregar Pelicula</button>
 
 @code{
 
     string nombre = "Alonso";
 
-     private List<Peliculas> ObtenerListadoPeliculas()
+    private List<Peliculas> Peliculas;
+
+    protected override void OnInitialized()
     {
-        return new List<Peliculas>()
-        {
-            new Peliculas(){Titulo = "La Momia",Lanzamiento= new DateTime(2019,11,10)},
-            new Peliculas(){Titulo = "Avengers",Lanzamiento= new DateTime(2019,11,10)},
-            new Peliculas(){Titulo = "Joker",Lanzamiento= new DateTime(2019,11,10)}
-        };
+
+        Peliculas = repositorio.ObtenerPeliculas();
+    }
+
+    void AgregarPelicula()
+    {
+        Peliculas.Add(new Peliculas() { Titulo = "Gear 5", Lanzamiento = DateTime.Today });
 
     }
 
-    
-
     public Peliculas Spiderman { get { return ObtenerPeliculas(); } }
-
-
 
     private Peliculas ObtenerPeliculas()
     {
@@ -34,12 +39,12 @@
         return new Peliculas()
         {
             Titulo = "Spiderman a new beginig",
-            Lanzamiento = new DateTime(2019,11,09)
+            Lanzamiento = new DateTime(2019, 11, 09)
 
         };
     }
 
-   
+
     private void manejarClick()
     {
         Console.WriteLine("Has hecho Click, desde método");

@@ -13,24 +13,28 @@
 
     [Parameter]public List<Peliculas> Peliculas{ get; set; }
 
+    //se ejecute cuando se inicia un componente
     protected override void OnInitialized()
     {
-        Console.WriteLine("OnInitialized");
+        Console.WriteLine($"OnInitialized - Cantidad Peliculas: {Peliculas.Count}");
     }
 
+    //se va ejecutar cada vez que el componente tenga acción
     protected override void OnParametersSet()
     {
-        Console.WriteLine("OnInitialized");
+        Console.WriteLine($"OnInitialized - Cantidad Peliculas: {Peliculas.Count}");
     }
 
+    //se ejecutan cuando el componente se renderizo, sirve para usar javascript
     protected override void OnAfterRender(bool primeraRenderizacion)
     {
         Console.WriteLine($"OnAfterRender : Primera vez: {primeraRenderizacion}");
     }
 
+    //Para que un componente pueda o no volver a renderizar
     protected override bool ShouldRender()
     {
-        Console.WriteLine("OnInitialized");
+        Console.WriteLine("ShouldRender");
         return true;
     }
 
