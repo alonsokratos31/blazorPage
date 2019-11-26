@@ -1,5 +1,7 @@
-﻿<div>
+﻿@inject IJSRuntime js
+
     <input type="checkbox" @bind="MostrarBotones" />
+
     <ListadoGenerico Listado="Peliculas">
         <HayRegistros Context="pelicula">
             <PeliculaIndividual Pelicula="pelicula" EliminarPelicula="EliminarPelicula"
@@ -7,10 +9,14 @@
             </PeliculaIndividual>
         </HayRegistros>
     </ListadoGenerico>
-</div>
+
+<Confirmacion @ref="confirmacion" onConfirm="EliminarPeliculaConfirmacion" onCancel="onCancelConfirmacion">
+    <div>¿Desea borrar la película?</div>
+</Confirmacion>
 
 @code {
 
+    Confirmacion confirmacion;
     [Parameter]public List<Peliculas> Peliculas{ get; set; }
 
     //se ejecute cuando se inicia un componente
@@ -40,11 +46,31 @@
 
     bool MostrarBotones = false;
 
-    void EliminarPelicula(Peliculas pelicula)
+    async Task EliminarPelicula(Peliculas pelicula)
     {
-        Peliculas.Remove(pelicula);
-        Console.WriteLine($"Se ha Eliminado una película {pelicula.Titulo}");
+        confirmacion.Mostrar();
+        //Código JavaScript
+        //var confirmado = await js.Confirm($"¿Desea borrar la película{pelicula.Titulo}"); //js.InvokeAsync<bool>("confirm", $"¿Desea borrar la película{pelicula.Titulo}");
+        //if (confirmado)
+        //{
+        //   Peliculas.Remove(pelicula);
+        //   Console.WriteLine($"Se ha Eliminado una película {pelicula.Titulo}");
+
+        //}
     }
 
+    Peliculas peliculaBorrar;
+    void EliminarPeliculaConfirmacion()
+    {
+        Peliculas.Remove(peliculaBorrar);
+        confirmacion.Ocultar();
+        peliculaBorrar = null;
+    }
+
+    void onCancelConfirmacion()
+    {
+        confirmacion.Ocultar();
+        peliculaBorrar = null;
+    }
 
 }

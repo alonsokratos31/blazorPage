@@ -1,9 +1,10 @@
 ﻿@page "/"
 @inject ServicioSingleton singleton
 @inject IRepositorio  repositorio
+@using static BlazorApp1.Client.Shared.MainLayout;
 
 
-<p>El valor del singleton es @singleton.Valor</p>
+<p style="color: @appState.Color">El valor del singleton es @singleton.Valor</p>
 <div>
     <h3>Listado de Películas</h3>
     <ListadoPeliculas Peliculas="Peliculas">
@@ -16,6 +17,7 @@
 @code{
 
     string nombre = "Alonso";
+    [CascadingParameter] private AppState appState { get; set; }
 
     private List<Peliculas> Peliculas;
 
