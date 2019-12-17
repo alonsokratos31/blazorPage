@@ -5,10 +5,14 @@ using System.Text;
 
 namespace BlazorApp1.Shared.Entidades
 {
-    public class Genero
+    public class Persona
     {
         public int Id { get; set; }
-        [Required(ErrorMessage ="El campo {0} es requerido")]
+        [Required]
         public string Nombre { get; set; }
+        public string Biografia { get; set; }
+        public string Foto { get; set; }
+        [Required]
+        public DateTime? FechaNacimiento { get; set; }
     }
 }

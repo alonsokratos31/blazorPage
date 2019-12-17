@@ -1,5 +1,15 @@
-﻿<h3>CrearPersona</h3>
+﻿@page "/personas/crear"
+<h3>Crear Persona</h3>
+<FormularioPersona OnValidSubmit="Crear" Persona="Persona">
+
+</FormularioPersona>
 
 @code {
 
+    private Persona Persona = new Persona();
+
+    void Crear()
+    {
+        Console.WriteLine("Crear Persona");
+    }
 }
