@@ -1,16 +1,32 @@
 ﻿@page "/movie/editar/{PeliculaId:int}"
 <h3>Editar Película</h3>
 
-<FormularioMovie  Pelicula="Pelicula" OnValidSubmit="Editar"></FormularioMovie>
+<FormularioMovie  Pelicula="Pelicula" OnValidSubmit="Editar"
+                 GenerosNoSeleccionados="GenerosNoSeleccionados"
+                 GenerosSeleccionados="GenerosSeleccionados"></FormularioMovie>
 
 @code {
 
     [Parameter] public int PeliculaId { get; set; }
     Peliculas Pelicula = new Peliculas();
+    private List<Genero> GenerosSeleccionados = new List<Genero>();
+    private List<Genero> GenerosNoSeleccionados = new List<Genero>();
 
     protected override void OnInitialized()
     {
         Pelicula = new Peliculas() { id = PeliculaId, Titulo = "Mi Película" };
+
+         GenerosNoSeleccionados = new List<Genero>()
+         {
+            new Genero(){Id = 1, Nombre= "Comedia"},
+            new Genero(){Id = 2, Nombre= "Drama"},
+            new Genero(){Id = 4, Nombre= "Sci-fi"}
+         };
+
+        GenerosSeleccionados = new List<Genero>()
+         {
+            new Genero(){Id = 3, Nombre= "Acción"}
+         };
     }
 
     private void Editar()
